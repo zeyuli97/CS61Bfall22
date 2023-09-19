@@ -28,10 +28,12 @@ public class Fun{
                 System.out.println(x);
             }
 
-            // From the output we see that x only takes a copy of array element.
+            // From the output we see that x only takes a copy of array element. Nothing is affect in the original array.
             System.out.println(Arrays.toString(test1));
 
             
+
+
 
     }
 
