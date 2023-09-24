@@ -119,6 +119,10 @@ public class Model extends Observable {
         // TODO: Fill in this function.
         _board.setViewingPerspective(side);
         all_col_move();
+        _board.setViewingPerspective(Side.NORTH);
+        if(gameOver()){
+            _maxScore = _score;
+        }
         checkGameOver();
 
     }
@@ -175,6 +179,7 @@ public class Model extends Observable {
             }
             if (t.value() == next.value()){
                 move(c,r,next);
+                _score += t.value()*2;
             }
             for (int down = (r-1); down > -1; down --){
                 col_move_up_only(c,down);
