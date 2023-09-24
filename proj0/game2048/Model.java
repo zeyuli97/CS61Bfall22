@@ -117,8 +117,74 @@ public class Model extends Observable {
      */
     public void tilt(Side side) {
         // TODO: Fill in this function.
-
+        _board.setViewingPerspective(side);
+        all_col_move();
         checkGameOver();
+
+    }
+
+    public void all_col_move(){
+        for (int i = 0; i < size(); i += 1){
+            col_move_up_only(i, (size()-1));
+            col_merge_runner(i, (size()-1));
+        }
+    }
+
+
+    /** This is a helper function that helps all tile to move upward
+     *  This method does not support merge, only contains moving tile
+     * */
+    public void col_move_up_only(int c, int s){
+        for (int r = s; r > -1; r -= 1) {
+            if (tile(c, r) == null) {
+                col_check_down(c, (r - 1), r);
+            }
+        }
+    }
+
+    /** Helper function for col_move_up_only
+     *  This method check whether there is qualified tile to move up
+     * */
+    public void col_check_down(int c, int r, int p){
+        while (r > -1){
+            if (tile(c ,r) == null){
+                r = r - 1;
+            } else {
+                Tile t = tile(c,r);
+                move(c, p,t);
+                r = r - 1;
+                p = p - 1;
+            }
+        }
+    }
+
+
+    /** One important thing about this function, this function runs after the move_up method.
+     * The result about above method is that all current non-null tile is adjacent to each other.
+     * Therefore, we do not have to test all column down, just test over the next tile to see whether equals.
+     * */
+    public void col_merge_runner(int c, int row){
+        for (int r = row; r > 0; r--){
+            Tile t = tile(c,r);
+            Tile next = tile(c, (r-1));
+            if (next == null){
+                break;
+            }
+            if (t == null){
+                break;
+            }
+            if (t.value() == next.value()){
+                move(c,r,next);
+            }
+            for (int down = (r-1); down > -1; down --){
+                col_move_up_only(c,down);
+            }
+
+        }
+    }
+
+    public void move(int c, int r, Tile t){
+        _board.move(c, r, t);
     }
 
     /** Checks if the game is over and sets the gameOver variable
