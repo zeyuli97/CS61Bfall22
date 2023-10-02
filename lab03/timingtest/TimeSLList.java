@@ -18,11 +18,32 @@ public class TimeSLList {
     }
 
     public static void main(String[] args) {
-        timeGetLast();
+        AList<Integer> nsizes = new AList<Integer>();
+        AList<Double> runtimes = new AList<Double>();
+        AList<Integer> opcounts = new AList<Integer>();
+        timeGetLast(nsizes, runtimes, opcounts);
+        printTimingTable(nsizes, runtimes, opcounts);
     }
 
-    public static void timeGetLast() {
-        // TODO: YOUR CODE HERE
+    public static void timeGetLast(AList<Integer> nsizes, AList<Double> runtimes, AList<Integer> opcounts) {
+        int m = 10000;
+        int[] sizes = new int[]{1000,2000,4000,8000,16000,32000,64000,128000};
+        for (int x : sizes){
+            nsizes.addLast(x);
+            SLList<Integer> s = new SLList<Integer>();
+            for (int i = 0; i < x; i ++){
+                s.addLast(i);
+            }
+            Stopwatch sw = new Stopwatch();
+            for (int j = 0; j < m; j++){
+                s.getLast();
+            }
+
+            double timeinsecond = sw.elapsedTime();;
+            runtimes.addLast(timeinsecond);
+            opcounts.addLast(m);
+        }
+
     }
 
 }

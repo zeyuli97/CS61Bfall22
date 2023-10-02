@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.Stopwatch;
  */
 public class StopwatchDemo {
     /** Computes the nth Fibonacci number using a slow naive recursive strategy.*/
-    private static int fib(int n) {
+    private static long fib(int n) {
         if (n < 0) {
             return 0;
         }
@@ -19,9 +19,9 @@ public class StopwatchDemo {
 
     public static void main(String[] args) {
         Stopwatch sw = new Stopwatch();
-        int fib41 = fib(41);
+        long fib50 = fib(50);
         double timeInSeconds = sw.elapsedTime();
-        System.out.println("The 50th fibonacci number is " + fib41);
-        System.out.println("Time taken to compute 41st fibonacci number: " + timeInSeconds + " seconds.");
+        System.out.println("The 50th fibonacci number is " + fib50);
+        System.out.println("Time taken to compute 50th fibonacci number: " + timeInSeconds + " seconds.");
     }
 }

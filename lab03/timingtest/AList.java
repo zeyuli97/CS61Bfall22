@@ -25,8 +25,9 @@ public class AList<Item> {
     }
 
     /** Resizes the underlying array to the target capacity. */
-    private void resize(int capacity) {
-        Item[] a = (Item[]) new Object[capacity];
+    private void resize() {
+        int factor = 2;
+        Item[] a = (Item[]) new Object[size * factor];
         System.arraycopy(items, 0, a, 0, size);
         items = a;
     }
@@ -34,7 +35,7 @@ public class AList<Item> {
     /** Inserts X into the back of the list. */
     public void addLast(Item x) {
         if (size == items.length) {
-            resize(size + 1);
+            resize();
         }
 
         items[size] = x;
