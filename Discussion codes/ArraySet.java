@@ -16,7 +16,7 @@ public class ArraySet<T> implements Iterable<T>{
         if (input == null){
             return tracknull;
             }
-        for (int i = 0; i < items.length; i ++){
+        for (int i = 0; i < size; i ++){
             if (items[i].equals(input)){
                 return true;
             }
@@ -31,9 +31,27 @@ public class ArraySet<T> implements Iterable<T>{
         }
         if (input == null){
             tracknull = true;
+            size += 1;
+            return;
         }
         items[size] = input;
         size += 1;
+    }
+
+    public void addMulti(T[] input){
+        for (int i = 0; i < input.length; i ++){
+            if (contains(input[i])){
+                System.out.println("ArraySet already contains this element.");
+                return;
+            }
+            if (input[i] == null){
+                tracknull = true;
+                size += 1;
+                return;
+            }
+            items[size] = input[i];
+            size += 1;
+        }
     }
 
     public int getSize(){
@@ -44,6 +62,9 @@ public class ArraySet<T> implements Iterable<T>{
     public boolean equals(Object input){
         if (input instanceof ArraySet other){
             if (size != other.size){
+                return false;
+            }
+            if (this.tracknull != other.tracknull){
                 return false;
             }
             for (T item : this){
@@ -81,5 +102,39 @@ public class ArraySet<T> implements Iterable<T>{
         }
     }
 
+    @Override
+    public String toString(){
+        StringBuilder return_string = new StringBuilder("{");
+        for (int i = 0; i < size - 1; i ++){
+            // The below item[i].toString() is calling toString() function of type T (i.e. Integer)
+            return_string.append(items[i].toString());
+            return_string.append(", ");
+        }
+        return_string.append(items[size - 1]);
+        return_string.append("}");
+        return return_string.toString();
+    }
+
+    public static void main(String[] args) {
+        ArraySet<Integer> aset = new ArraySet<>();
+        aset.add(1);
+        aset.add(2);
+        aset.add(3);
+        aset.add(null);
+        System.out.println(aset.getSize());
+        aset.add(null);
+        System.out.println(aset.getSize());
+        System.out.println(aset);
+
+        ArraySet<Integer> bset = new ArraySet<>();
+        Integer[] b = new Integer[]{1,2,3};
+        bset.addMulti(b);
+        System.out.println(bset);
+        bset.add(null);
+        bset.add(null);
+        System.out.println(aset.equals(bset));
+
+
+    }
 
 }
