@@ -1,7 +1,11 @@
 package deque;
 
 /**
- * First try using circular approach
+ * This approach I am using double linked list method.
+ * So each node, we have three items in following order: stored value, previous node address, next node address.
+ * By this design, we will have constant time for add and remove function.
+ *  !!! The get function can be optimized, but have not done so. !!!
+ *  Idea: depend on the index number and size//2, we will navigate using next node or previous node.
  * */
 public class LinkedListDeque <Item>{
     public class IntNode{
@@ -19,8 +23,9 @@ public class LinkedListDeque <Item>{
     /**
      * Modified IntNode to communicate prev and next
      * */
+    // The technique used before to handle empty double linked list
     private IntNode sentinel;
-    private int size;
+    private int size; // Constant size function will call
 
     public LinkedListDeque(){
         sentinel = new IntNode(null, null, null);

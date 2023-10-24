@@ -133,8 +133,6 @@ public class ArraySet<T> implements Iterable<T>{
         bset.add(null);
         bset.add(null);
         System.out.println(aset.equals(bset));
-
-
     }
 
 }
