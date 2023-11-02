@@ -1,5 +1,9 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Arrays;
+
 public class ArrayDeque<Item> {
 
     /**
@@ -78,13 +82,16 @@ public class ArrayDeque<Item> {
         int new_head = (a.length / 2);
         System.arraycopy(items, head, a, new_head, size);
         items = a;
-        tail = (new_head + size)-1;
+        tail = (new_head + size);
         len = (a.length / 2);
         head = new_head;
 
     }
 
     public Item removeFirst(){
+        if (size == 0){
+            return null;
+        }
         Item x = getFirst();
         items[head] = null;
         head += 1;
@@ -97,6 +104,9 @@ public class ArrayDeque<Item> {
     }
 
     public Item removeLast(){
+        if (size == 0){
+            return null;
+        }
         Item x = getLast();
         items[tail] = null;
         tail -= 1;
@@ -181,6 +191,9 @@ public class ArrayDeque<Item> {
             a.removeFirst();
         }
         a.printDeque();
+
+        int[] c = new int[10];
+        System.out.println(Arrays.toString(c));
     }
 
 }

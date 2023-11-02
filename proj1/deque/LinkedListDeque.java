@@ -6,6 +6,9 @@ package deque;
  * By this design, we will have constant time for add and remove function.
  *  !!! The get function can be optimized, but have not done so. !!!
  *  Idea: depend on the index number and size//2, we will navigate using next node or previous node.
+ *
+ *  A easier way to think is: sentinel.next --> first item. if we change sentinel.next, we only change the direction
+ *  from sentinel to somewhere else, first item is untouched. We can still access first item use sentinel.first.
  * */
 public class LinkedListDeque <Item>{
     public class IntNode{
@@ -46,6 +49,12 @@ public class LinkedListDeque <Item>{
     public void addFirst(Item x){
         IntNode p = new IntNode(x, sentinel, sentinel.next);
         sentinel.next.prev = p;
+        /**
+         * Here is the tricky part, because not only we need to modify the sentinel we also need to change the original
+         * first item, because it can no longer point to sentinel. The original first item need to point to the new
+         * first item, and the new item also need to point to the old first.
+         * */
+
         sentinel.next = p;
 
         size += 1;
