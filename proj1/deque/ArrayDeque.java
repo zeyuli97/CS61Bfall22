@@ -3,8 +3,9 @@ package deque;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ArrayDeque<Item> {
+public class ArrayDeque<Item> implements Iterable<Item>{
 
     /**
      * Some thoughts
@@ -37,7 +38,7 @@ public class ArrayDeque<Item> {
         size = 0;
         items = (Item[]) new Object[5];
         head = items.length/2;
-        tail = size + head;
+        tail = head;
         len = (items.length)/2;
     }
 
@@ -45,7 +46,7 @@ public class ArrayDeque<Item> {
         size = 1;
         items = (Item[]) new Object[5];
         head = items.length/2;
-        tail = size + head;
+        tail = size + head - 1;
         items[head] = x;
         len = (items.length)/2;
     }
@@ -73,7 +74,7 @@ public class ArrayDeque<Item> {
     }
 
     public Item getLast(){
-        return items[tail];
+        return items[head + size - 1];
     }
 
     public void resize(){
@@ -108,8 +109,8 @@ public class ArrayDeque<Item> {
             return null;
         }
         Item x = getLast();
+        tail = size + head - 1;
         items[tail] = null;
-        tail -= 1;
         size = size -1;
         double ratio = (double) size/ items.length;
         if (ratio < 0.25){
@@ -124,7 +125,7 @@ public class ArrayDeque<Item> {
         int new_head = (a.length / 2);
         System.arraycopy(items, head, a, new_head, size);
         items = a;
-        tail = (new_head + size)-1;
+        tail = (new_head + size) - 1;
         len = (a.length / 2);
         head = new_head;
     }
@@ -138,7 +139,7 @@ public class ArrayDeque<Item> {
     }
 
     public void printDeque(){
-        for (int i = head; i <= tail; i ++){
+        for (int i = head; i < (head + size); i ++){
             System.out.print(items[i]);
             System.out.print(" ");
         }
@@ -153,7 +154,28 @@ public class ArrayDeque<Item> {
         return true;
     }
 
+    @Override
+    public Iterator<Item> iterator() {
+        return new ArrayDequeIterator();
+    }
+    private class ArrayDequeIterator implements Iterator<Item>{
+        private int position;
 
+        public ArrayDequeIterator(){
+            position = head;
+        }
+        @Override
+        public boolean hasNext() {
+            return position <= tail;
+        }
+
+        @Override
+        public Item next() {
+            Item x = items[position];
+            position += 1;
+            return x;
+        }
+    }
 
     public static void main(String[] args) {
         ArrayDeque<Integer> a = new ArrayDeque<>(0);
@@ -183,17 +205,13 @@ public class ArrayDeque<Item> {
         a.removeLast();
         a.printDeque();
         System.out.println(a.size());
-        int x = 15;
-        int y = 117;
-        float num = (float) x/ y;
-        System.out.println(num);
         for (int i = 0; i < 996; i ++){
             a.removeFirst();
         }
+        for (int x: a){
+            System.out.println(x);
+        }
         a.printDeque();
-
-        int[] c = new int[10];
-        System.out.println(Arrays.toString(c));
+        System.out.println(a.isEmpty());
     }
-
 }

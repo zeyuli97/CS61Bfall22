@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 /**
  * This approach I am using double linked list method.
  * So each node, we have three items in following order: stored value, previous node address, next node address.
@@ -10,7 +12,8 @@ package deque;
  *  A easier way to think is: sentinel.next --> first item. if we change sentinel.next, we only change the direction
  *  from sentinel to somewhere else, first item is untouched. We can still access first item use sentinel.first.
  * */
-public class LinkedListDeque <Item>{
+public class LinkedListDeque <Item> implements Iterable<Item>{
+
     public class IntNode{
         public Item item;
         public IntNode next;
@@ -21,6 +24,32 @@ public class LinkedListDeque <Item>{
             item = x;
             next = nextnode;
             prev = prevnode;
+        }
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new LinkedListDequeIterator();
+    }
+    private class LinkedListDequeIterator implements Iterator<Item>{
+        int tracker;
+        IntNode current;
+
+        public LinkedListDequeIterator(){
+            tracker = size;
+            current = sentinel.next;
+        }
+        @Override
+        public boolean hasNext() {
+            return tracker != 0;
+        }
+
+        @Override
+        public Item next() {
+            Item x = current.item;
+            current = current.next;
+            tracker --;
+            return x;
         }
     }
     /**
@@ -183,7 +212,10 @@ public class LinkedListDeque <Item>{
         int c = l.removeLast();
         System.out.println(l.size());
         l.printDeque();
-        System.out.println(l.getRecursive(3));
+        System.out.println(l.getRecursive(4));
+        for (int x: l){
+            System.out.println(x);
+        }
 
     }
 
