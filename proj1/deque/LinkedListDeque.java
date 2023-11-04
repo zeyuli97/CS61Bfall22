@@ -12,7 +12,7 @@ import java.util.Iterator;
  *  A easier way to think is: sentinel.next --> first item. if we change sentinel.next, we only change the direction
  *  from sentinel to somewhere else, first item is untouched. We can still access first item use sentinel.first.
  * */
-public class LinkedListDeque <Item> implements Iterable<Item>{
+public class LinkedListDeque <Item> implements Iterable<Item>, Deque<Item>{
 
     public class IntNode{
         public Item item;
@@ -75,6 +75,7 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         size = 1;
     }
 
+    @Override
     public void addFirst(Item x){
         IntNode p = new IntNode(x, sentinel, sentinel.next);
         sentinel.next.prev = p;
@@ -95,7 +96,7 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         }
         return sentinel.next.item;
     }
-
+    @Override
     public void addLast(Item x){
         IntNode p = new IntNode(x, sentinel.prev, sentinel);
         sentinel.prev.next = p;
@@ -109,15 +110,12 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         }
         return sentinel.prev.item;
     }
-
-    public boolean isEmpty(){
-        return size == 0;
-    }
-
+    @Override
     public int size(){
         return size;
     }
 
+    @Override
     public void printDeque(){
         IntNode p = sentinel;
         while (p.next.item != null){
@@ -128,6 +126,7 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         System.out.println();
     }
 
+    @Override
     public Item removeFirst(){
         if (size == 0){
             return null;
@@ -139,6 +138,7 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         return x;
     }
 
+    @Override
     public Item removeLast(){
         if (size == 0){
             return null;
@@ -150,6 +150,7 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         return x;
     }
 
+    @Override
     public Item get(int index){
         if (size == 0){
             return null;
@@ -190,7 +191,9 @@ public class LinkedListDeque <Item> implements Iterable<Item>{
         }else{
             return  get_recursion_helper(index-1, p.next);
         }
+
     }
+    
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> l = new LinkedListDeque<>();

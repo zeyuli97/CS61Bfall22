@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class ArrayDeque<Item> implements Iterable<Item>{
+public class ArrayDeque<Item> implements Iterable<Item>, Deque<Item>{
 
     /**
      * Some thoughts
@@ -28,9 +28,9 @@ public class ArrayDeque<Item> implements Iterable<Item>{
     private int size;
     private Item[] items;
 
-    private int head;
+    int head;
 
-    private int tail;
+    int tail;
 
 
 
@@ -51,6 +51,7 @@ public class ArrayDeque<Item> implements Iterable<Item>{
         len = (items.length)/2;
     }
 
+    @Override
     public void addFirst(Item x){
         if (head == 0){
             resize();
@@ -64,6 +65,7 @@ public class ArrayDeque<Item> implements Iterable<Item>{
         return items[head];
     }
 
+    @Override
     public void addLast(Item x){
         tail = size + head;
         if (tail >= items.length){
@@ -89,6 +91,7 @@ public class ArrayDeque<Item> implements Iterable<Item>{
 
     }
 
+    @Override
     public Item removeFirst(){
         if (size == 0){
             return null;
@@ -104,6 +107,7 @@ public class ArrayDeque<Item> implements Iterable<Item>{
         return x;
     }
 
+    @Override
     public Item removeLast(){
         if (size == 0){
             return null;
@@ -130,14 +134,13 @@ public class ArrayDeque<Item> implements Iterable<Item>{
         head = new_head;
     }
 
-    public boolean isEmpty(){
-        return size == 0;
-    }
 
+    @Override
     public int size(){
         return size;
     }
 
+    @Override
     public void printDeque(){
         for (int i = head; i < (head + size); i ++){
             System.out.print(items[i]);
@@ -146,6 +149,7 @@ public class ArrayDeque<Item> implements Iterable<Item>{
         System.out.println();
     }
 
+    @Override
     public Item get(int index){
         return items[index + head];
     }
