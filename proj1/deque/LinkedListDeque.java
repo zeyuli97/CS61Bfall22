@@ -193,7 +193,19 @@ public class LinkedListDeque <Item> implements Iterable<Item>, Deque<Item>{
         }
 
     }
-    
+
+    public boolean equals(Deque<Item> target){
+        if (size != target.size()){
+            return false;
+        }
+        for (int i = 0; i < size; i ++){
+            if (this.get(i) != target.get(i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> l = new LinkedListDeque<>();
@@ -208,17 +220,18 @@ public class LinkedListDeque <Item> implements Iterable<Item>, Deque<Item>{
         l.addLast(4);
         l.addLast(5);
         System.out.println(l.isEmpty());
-        int a = l.removeFirst();
-        System.out.println(l.size());
+        l.isEmpty();
         l.printDeque();
-        int b = l.removeLast();
-        int c = l.removeLast();
-        System.out.println(l.size());
-        l.printDeque();
-        System.out.println(l.getRecursive(4));
-        for (int x: l){
-            System.out.println(x);
-        }
+        ArrayDeque<Integer> l2 = new ArrayDeque<>(0);
+        l2.addLast(1);
+        l2.addLast(2);
+        l2.addLast(3);
+        l2.addLast(4);
+        l2.addLast(5);
+        l2.printDeque();
+        System.out.println(l2.get(0));
+
+
 
     }
 

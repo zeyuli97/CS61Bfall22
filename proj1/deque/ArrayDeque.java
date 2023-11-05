@@ -154,7 +154,15 @@ public class ArrayDeque<Item> implements Iterable<Item>, Deque<Item>{
         return items[index + head];
     }
 
-    public boolean equals(){
+    public boolean equals(Deque<Item> target){
+        if (size != target.size()){
+            return false;
+        }
+        for (int i = 0; i < size; i ++){
+            if (this.get(i) != target.get(i)){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -217,5 +225,6 @@ public class ArrayDeque<Item> implements Iterable<Item>, Deque<Item>{
         }
         a.printDeque();
         System.out.println(a.isEmpty());
+        System.out.println(a.get(0));
     }
 }
